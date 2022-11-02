@@ -40,6 +40,7 @@ def solution(array):
             current_distinct_index += 1
             array[current_distinct_index] = array[i]
         i += 1
+    print(array)
     return current_distinct_index + 1
 
 
