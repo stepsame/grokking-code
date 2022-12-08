@@ -28,7 +28,7 @@ Space Complexity: O(N) for the output array
 """
 
 
-def solution1(arr1, arr2):
+def find_duplicates1(arr1, arr2):
     i, j = 0, 0
     duplicates = []
     while i < len(arr1) and j < len(arr2):
@@ -43,7 +43,7 @@ def solution1(arr1, arr2):
     return duplicates
 
 
-def solution2(arr1, arr2):
+def find_duplicates2(arr1, arr2):
     # let arr2 becomes the smaller one
     if len(arr1) < len(arr2):
         arr1, arr2 = arr2, arr1
@@ -53,12 +53,12 @@ def solution2(arr1, arr2):
         search_index = binary_search_index(arr1, i, last_index, len(arr1) - 1)
         if search_index != -1:
             duplicates.append(arr1[search_index])
+            last_index = search_index
     return duplicates
 
 
 def binary_search_index(arr, element, start, end):
     i, j = start, end
-    # 0, 1, 2, 3
     while i <= j:
         mid = (i + j) // 2
         if arr[mid] == element:
@@ -71,8 +71,8 @@ def binary_search_index(arr, element, start, end):
 
 
 def main():
-    assert solution1(arr1=[1, 2, 3, 5, 6, 7], arr2=[3, 6, 7, 8, 20]) == [3, 6, 7]
-    assert solution2(arr1=[1, 2, 3, 5, 6, 7], arr2=[3, 6, 7, 8, 20]) == [3, 6, 7]
+    assert find_duplicates1(arr1=[1, 2, 3, 5, 6, 7], arr2=[3, 6, 7, 8, 20]) == [3, 6, 7]
+    assert find_duplicates2(arr1=[1, 2, 3, 5, 6, 7], arr2=[3, 6, 7, 8, 20]) == [3, 6, 7]
 
 
 if __name__ == '__main__':
