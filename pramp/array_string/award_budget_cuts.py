@@ -16,14 +16,20 @@ output: 47 # and given this cap the new grants array would be
 
 """
 Solution:
-first, sort out this grants array by ascending order.
-then, iterate the array, assume current grants is the cap, so all the other grants will be same as this grant.
-So we can calculate if it's enough for us to apply grants.
-If we can, then we can move to next one and the budget minus current grants.
-Others, that means the cap is smaller than current grants and we can calculate it.
-the cap equals left budget divided by left grants number.
+First, we need to sort the grants array in ascending order.
 
-Time Complexity: O(NlogN) sorting
+Then, we use a variable to track the left budget and traverse the array to apply for the grant. 
+For every grant, assume it is the cap, so all the other grants will be the same as this one. 
+Required money is equal to the cap multiply the number of left people.
+If the Required money is less than the left budget, then we can just subtract the current grant from the left budget and move to the next.
+Otherwise; the cap should be less than the current grant. And the cap is equal to the left budget evenly divided by the number of left people.
+
+
+Time Complexity: O(NlogN) 
+
+Sorting cost O(N LogN) Time, and traverse the array cost O(N) time, So O(NLogN)
+
+
 Space Complexity: O(1)
 
 """
@@ -33,7 +39,6 @@ def solution(grants_array, new_budget):
     # sort the grants array
     grants_array.sort()
 
-    new_grants = []
     left_budget = new_budget
     left_grant_num = len(grants_array)
     for i in range(len(grants_array)):
@@ -47,8 +52,8 @@ def solution(grants_array, new_budget):
 
 
 def main():
-    assert solution(grants_array = [2, 100, 50, 120, 1000], new_budget = 190) == 47
-    assert solution(grants_array = [2, 100, 50, 120, 1000], new_budget = 10000000) == 1000
+    assert solution(grants_array=[2, 100, 50, 120, 1000], new_budget=190) == 47
+    assert solution(grants_array=[2, 100, 50, 120, 1000], new_budget=10000000) == 1000
 
 
 if __name__ == '__main__':
