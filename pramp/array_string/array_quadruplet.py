@@ -26,6 +26,8 @@ We can implement k - 2 loops using a recursion.
 
 Time Complexity:
 
+O(N^3)
+
 Space Complexity:
 
 """

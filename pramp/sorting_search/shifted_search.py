@@ -14,12 +14,12 @@ output: 3 # since it’s the index of 2 in arr
 
 """
 Solution:
-two pass:
-find the shift starter first. we can use binary search to do that. if mid is grater than low, it means started is in the right.
-one pass:
-using a modified binary search.
-if low <= mid, means left is ordered. if target is in the left, then we can do normal binary search.
-otherwise if mid > low, means the pivot is in the left and right is ordered, so we can check if target in the right by compare it to mid and high.
+We could use a modified binary search algorithm.
+
+There are 3 cases:
+If the mid element is equal to the target, return the mid index.
+If the arr[low] <= the arr[mid], that means the shift pivot is not in the [low, mid] part, so this part is ordered. If arr[low]<= target < arr[mid], the target is in the left part, update the high pointer, otherwise update the low pointer.
+If the arr[low] > the arr[mid], that means the shift pivot is in the [low, mid] part, so the [mid, high] part is ordered. If arr[mid]< target <= arr[high], the target is in the right part, update the low pointer, otherwise, update the high pointer.
 
 Time Complexity: O(LogN)
 Space Complexity: O(1)
@@ -35,12 +35,12 @@ def solution(arr, num):
         if arr[mid] == num:
             return mid
         # Case 1: no pivot in low-mid range, nums are ordered
-        if low <= mid:
+        if arr[low] <= arr[mid]:
             if arr[low] <= num < arr[mid]:
                 high = mid - 1
             else:
                 low = mid + 1
-        # Case 2: pivot in low-mid range, nums are unordered
+        # Case 2: pivot in low-mid range, mid-high nums are ordered
         else:
             if arr[mid] < num <= arr[high]:
                 low = mid + 1

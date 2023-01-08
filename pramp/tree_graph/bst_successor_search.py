@@ -22,24 +22,12 @@ output = node 20
 
 """
 Solution:
-Let’s denote the Inorder Successor of inputNode as successorNode. 
-To arrive to the solution, we distinguish between two cases:
-    1.inputNode has a right child. In this case successorNode would be the node with the minimum key in inputNode's right subtree.
-    2.inputNode doesn't have a right child. In this case successorNode would be one of inputNode's ancestors.
-    More specifically, within inputNode's ancestor chain (starting from inputNode all the way up to the root),
-     successorNode is the first parent that has a left child in that chain.
-    If inputNode doesn't have a right child and all of its ancestors are right children to their parents,
-     inputNode doesn't have a successor (successorNode would be null).
+If a node x has a right child, its successor is the minimal node of its right sub-tree.
+In other words, the node’s successor is the leftmost descendant of its right child in this case.
+Because, after visiting x, the traversal procedure will process the right sub-tree of x,
+  and the first to visit there is its leftmost leaf.
 
-So why is this always true?
-    Well, if inputNode was inserted to the tree prior to successorNode,
-     then since successorNode.key is greater than inputNode.key,
-     but also smaller than all other keys greater than successorNode.key, successorNode has to be in inputNode's right subtree.
-
-    Now, if inputNode was inserted to the tree after successorNode was, 
-    then since inputNode.key is smaller than successorNode.key, 
-    but also larger than all other keys smaller than successorNode.key, inputNode has to be in successorNode's left subtree.
-
+If x has no right child, its in-order successor is located above it in the tree, among its ancestors. While unfolding the recursive calls, the in-order traversal function will first visit the node whose left child was the most recent input. So, the x‘s successor is the parent of the \boldsymbol{x}‘s youngest ancestor that is a left child.
 Time Complexity: in both cases where either inputNode has a right child or doesn’t have one,
  we are visiting only O(H) number of nodes, where H is the height of the BST.
   For a balanced BST, since H = log(N), where N is the number of nodes in the BST, the time complexity is O(log(N)).
@@ -84,13 +72,10 @@ class BinarySearchTree:
             ancestor = child.parent
         return ancestor
 
-
     def find_min_key_within_tree(self, input_node):
         while input_node.left:
             input_node = input_node.left
         return input_node
-
-
 
     # Given a binary search tree and a number, inserts a
     # new node with the given number in the correct place
@@ -98,7 +83,6 @@ class BinarySearchTree:
     # caller should then use(the standard trick to avoid
     # using reference parameters)
     def insert(self, key):
-
         # 1) If tree is empty, create the root
         if self.root is None:
             self.root = Node(key)
@@ -110,7 +94,6 @@ class BinarySearchTree:
         current_node = self.root
         new_node = Node(key)
         while current_node is not None:
-
             if key < current_node.key:
                 if current_node.left is None:
                     current_node.left = new_node
@@ -130,7 +113,6 @@ class BinarySearchTree:
     # Use this method when you need a node to test your
     # findInOrderSuccessor function on
     def get_node_by_key(self, key):
-
         current_node = self.root
         while current_node is not None:
             if key == current_node.key:

@@ -17,11 +17,6 @@ Space Complexity: O(1)
 """
 
 
-# This implementation utilizes pivot as the last element in the nums list
-# It has a pointer to keep track of the elements smaller than the pivot
-# At the very end of partition() function, the pointer is swapped with the pivot
-# to come up with a "sorted" nums relative to the pivot
-
 def compare(a, b):
     if abs(a) < abs(b):
         return -1
@@ -33,6 +28,10 @@ def compare(a, b):
 
 
 # Function to find the partition position
+# This implementation utilizes pivot as the last element in the nums list
+# It has a pointer to keep track of the elements smaller than the pivot
+# At the very end of partition() function, the pointer is swapped with the pivot
+# to come up with a "sorted" nums relative to the pivot
 def partition(array, low, high):
     # choose the rightmost element as pivot
     pivot = array[high]
@@ -40,15 +39,13 @@ def partition(array, low, high):
     # pointer for greater element
     i = low - 1
 
-    # traverse through all elements
-    # compare each element with pivot
+    # traverse through all elements compare each element with pivot
     for j in range(low, high):
         if compare(array[j], pivot) == -1:
             # If element smaller than pivot is found
             # swap it with the greater element pointed by i
             i = i + 1
 
-            # Swapping element at i with element at j
             array[i], array[j] = array[j], array[i]
 
     # Swap the pivot element with the greater element specified by i
@@ -56,9 +53,6 @@ def partition(array, low, high):
 
     # Return the position from where partition is done
     return i + 1
-
-
-# function to perform quicksort
 
 
 def quick_sort(array, low, high):
